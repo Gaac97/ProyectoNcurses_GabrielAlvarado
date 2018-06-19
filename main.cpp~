@@ -621,7 +621,7 @@ bool seguir=true;
 										x1--;
 																	
 									refresh();
-									usleep(5000);		
+									usleep(4000);		
 								
 										
 								
