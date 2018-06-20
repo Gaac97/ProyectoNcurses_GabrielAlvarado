@@ -1,0 +1,33 @@
+#include <iostream>
+#include <string>
+#include <vector>
+
+using namespace std;
+
+#ifndef ENEMIES_H
+#define ENEMIES_H
+class Enemies{
+	protected:
+		int x;
+		int y;
+		int tx;
+		int ty;
+	public:
+		Enemies(int,int,int,int);
+		Enemies();
+		int crear(int,int);
+		int eliminar(int,int);
+		int getX();
+		void setX(int);
+
+		int getY();
+		void setY(int);
+
+		int getTx();
+		void setTx(int);
+
+		int getTy();
+		void setTy(int);
+
+};
+#endif

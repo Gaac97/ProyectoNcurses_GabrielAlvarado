@@ -1,4 +1,4 @@
-main:    main.cpp Disparo.o Enemies.o
+main:    main.cpp Disparo.o 
 	g++ main.cpp Disparo.o Enemies.o -lncurses -o main
 main.o:	main.cpp Disparo.h Enemies.h
 	g++ -c main.cpp

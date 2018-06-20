@@ -4,26 +4,41 @@
 #include "Disparo.h"
 #include <stdlib.h>
 #include <unistd.h>
+#include "Enemies.h"
+#include <vector>
 
 using namespace std;
 using std::cout;
 using std::endl;
 
-
+bool matar(int,int);
 int inicio();
 int disparo;
 int main(){
 inicio();
+
 	return 0;
 
 }//Fin del main
 
+bool matar(int x,int x2){
+	if(x==x2){
+		Enemies* e =new Enemies();
+		e->eliminar(10,22);
+		
 
+	}
+
+
+}
 
 
 int inicio(){
+	
 int x=50,y=66,tx=0,ty=0;
 initscr();
+Enemies* e = new Enemies();
+e->crear(10,22);
 char key = ' ';
 start_color();
 init_pair(1,COLOR_WHITE,COLOR_WHITE);
@@ -616,12 +631,15 @@ bool seguir=true;
 							
 										attron(COLOR_PAIR(9));
 										mvprintw(x1+i,y+5," ");
-										mvprintw(x1+i,y+6," ");	
+										mvprintw(x1+i,y+6," ");
+										mvprintw(x+i,y+5," ");											
+										mvprintw(x+i,y+6," ");	
 										attroff(COLOR_PAIR(9));
+										matar(x,y); //Manda coordenadas
 										x1--;
 																	
 									refresh();
-									usleep(5000);		
+									usleep(7000);		
 								
 										
 								
