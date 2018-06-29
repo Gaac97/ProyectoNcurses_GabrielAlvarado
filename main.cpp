@@ -6,39 +6,228 @@
 #include <unistd.h>
 #include "Enemies.h"
 #include <vector>
-
+#include <thread>
+#include "Game.h"
+#include <fstream>
 using namespace std;
 using std::cout;
 using std::endl;
 
-bool matar(int,int);
+int menu();
+void GuardarScore(vector<int>);
+bool matar(int,int,int,int);
+int moverY(int,int,int,int);
 int inicio();
-int disparo;
+void disparo(int,int,int,int);
+void crearEnemigos();
+
+Enemies* E = new Enemies();
+vector <Enemies*> naves; 
+int score;
+vector<int> Score;
+
+
+
+
+void GuardarScore(vector<int> list){
+  ofstream file("SCORE.txt");
+  if (file.is_open()) {
+    file<<"LISTA DE PUNTAJES"<<endl;
+    for (int i = 0; i < list.size(); i++) {
+      
+        int temp = list.at(i);
+        file<<"Puntaje: "<<list.at(i);
+      	  
+
+		}
+	
+	}
+	 file.close();
+}
 int main(){
+//vector <Enemies*> naves; 
+
+
+
+char op= menu();
+menu();
+if(op=='1'){
+	initscr();	
 inicio();
+}
+
+
+
+
 
 	return 0;
 
 }//Fin del main
 
-bool matar(int x,int x2){
-	if(x==x2){
-		Enemies* e =new Enemies();
-		e->eliminar(10,22);
-		
 
-	}
 
+int menu(){
+initscr();
+
+init_pair(1,COLOR_WHITE,COLOR_WHITE);
+init_pair(2,COLOR_BLACK,COLOR_BLACK);
+init_pair(3,COLOR_RED,COLOR_RED);
+attron(COLOR_PAIR(3));
+mvprintw(20,30,"BIENVENIDOS A LA AVENTURA");
+mvprintw(19,30,"A-IZQUIERDA-D-DERECHA-L-DISPARAR");
+mvprintw(10,30,"INFINITY WAR");
+
+
+mvprintw(12,30,"ELIJA UN NIVEL");
+mvprintw(13,30,"1.NIVEL 1");
+mvprintw(14,30,"2.NIVEL 2");
+mvprintw(15,30,"3.NIVEL 3");
+mvprintw(16,30,"CTRL-C-SALIR");
+
+
+char opcion;
+
+opcion = getch();
+
+attroff(COLOR_PAIR(3));
+clear();
+endwin();
+
+return opcion;
+}
+
+void crearEnemigos(){
+Enemies* e = new Enemies(10,22);
+
+e =new Enemies(10,35);
+naves.push_back(e);
+e = new Enemies(10,55);
+naves.push_back(e);
+e= new Enemies(10,65);
+naves.push_back(e);
+e= new Enemies(10,75);
+naves.push_back(e);
+
+e= new Enemies(10,95);
+naves.push_back(e);
+e= new Enemies(10,115);
+naves.push_back(e);
+e= new Enemies(10,125);
+naves.push_back(e);
+e= new Enemies(10,135);
+naves.push_back(e);
+
+e= new Enemies(20,22);
+naves.push_back(e);
+e= new Enemies(20,35);
+naves.push_back(e);
+e= new Enemies(20,55);
+naves.push_back(e);
+e= new Enemies(20,65);
+naves.push_back(e);
+
+e= new Enemies(20,65);
+naves.push_back(e);
+e= new Enemies(20,75);
+naves.push_back(e);
+e= new Enemies(20,95);
+naves.push_back(e);
+
+
+e= new Enemies(20,115);
+naves.push_back(e);
+
+e= new Enemies(20,125);
+naves.push_back(e);
+
+e= new Enemies(20,135);
+naves.push_back(e);
 
 }
 
 
-int inicio(){
+/*void* disparo(void* data,int x, int y){
+
+vector <Enemies*> naves; 
+Enemies* e = new Enemies(10,22);
+//naves.push_back(e);
+int i=-7;
+int z=x;	
+int x1=-7;
+							
+							
+		for(i=x;i>=0;i--){
+		
+			attron(COLOR_PAIR(3));
+				mvprintw(x+i,y+5," ");								
+				mvprintw(x+i,y+6," ");
+				attroff(COLOR_PAIR(3));	
+							
+				attron(COLOR_PAIR(9));
+				mvprintw(x1+i,y+5," ");
+				mvprintw(x1+i,y+6," ");
+				mvprintw(x+i,y+5," ");											
+				mvprintw(x+i,y+6," ");	
+				attroff(COLOR_PAIR(9));
+				matar(x,y); //Manda coordenadas
+				x1--;
+																	
+				refresh();												
+				usleep(7000);		
+								
+										
+			if(matar(x,y)==true){
+				e->eliminar(10,22);
+				
+		
+										
+			}
+
+
+	}
 	
+}*///Fin del metodo
+
+int moverY(int x,int y){
+	if(y<60){
+		return moverY(x,y-1);
+
+
+	}else{
+		return moverY(x,y+1);	
+	
+	}
+		if(y==60){
+			return moverY(x+6,y);
+		
+		
+		}
+	 }
+
+
+
+
+bool matar(int x,int y,int x2,int y2){
+	bool deci=false;
+	if(x==x2&&y==y2){	
+		return true;
+	
+	}
+
+}
+
+
+
+
+int inicio(){
+
+
 int x=50,y=66,tx=0,ty=0;
 initscr();
-Enemies* e = new Enemies();
-e->crear(10,22);
+Enemies* e=new Enemies();
+vector <Enemies*> naves; 
+crearEnemigos();
+
 char key = ' ';
 start_color();
 init_pair(1,COLOR_WHITE,COLOR_WHITE);
@@ -611,48 +800,52 @@ bool seguir=true;
 		
 				}else{
 					if(key=='l'){
-						int i=-7;
-						int z=x;	
-					int x1=-7;
+						
+					/*pthread_t thread1;
+					pthread_create(thread1,NULL,disparo(),NULL); 	*/					
+						
+						int i;
+						i=-7;
+						int z=x;
+						z=-7;	
+						int j=y;
 							
 							
-							for(i=x;i>=0;i--){
-								
-							
-							
-								//Pintar negro
-								/*attron(COLOR_PAIR(2));
-								mvprintw(x1-1,y+6," ");
-								attroff(COLOR_PAIR(2));*/
-									attron(COLOR_PAIR(3));
-										mvprintw(x+i,y+5," ");								
-										mvprintw(x+i,y+6," ");
-										attroff(COLOR_PAIR(3));	
-							
-										attron(COLOR_PAIR(9));
-										mvprintw(x1+i,y+5," ");
-										mvprintw(x1+i,y+6," ");
-										mvprintw(x+i,y+5," ");											
-										mvprintw(x+i,y+6," ");	
-										attroff(COLOR_PAIR(9));
-										matar(x,y); //Manda coordenadas
-										x1--;
+			for(i=x;i>=1;i--){
+				attron(COLOR_PAIR(3));
+				mvprintw(z,j+5,"*");								
+				mvprintw(z,j+6,"*");
+				attroff(COLOR_PAIR(3));	
+				
+				
+				attron(COLOR_PAIR(0));
+				mvprintw(i,j+5," ");
+				mvprintw(i,j+6," ");
+				
+				attroff(COLOR_PAIR(0));
 																	
-									refresh();
-									usleep(7000);		
-								
-										
-								
-							
-								
-							}//FIN
-							
-							
-																
-					
+				refresh();	
+				
+													
+				usleep(4000);		
+					for(int i=0;i<naves.size();i++){
+					if(matar(x,y,i,22)==true){				
+							E->eliminar(10,22);
+						
 					}
 					
-	
+						}	
+								
+					}//FIN
+					score =score+10;
+					Score.push_back(score);	
+					
+					GuardarScore(Score);
+					
+					
+								
+					}
+				
 				}
 			}
 		}

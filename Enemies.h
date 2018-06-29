@@ -14,9 +14,11 @@ class Enemies{
 		int ty;
 	public:
 		Enemies(int,int,int,int);
+		Enemies(int,int);
 		Enemies();
-		int crear(int,int);
+		//int crear(int,int);
 		int eliminar(int,int);
+		bool atacar();
 		int getX();
 		void setX(int);
 

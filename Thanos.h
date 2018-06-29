@@ -4,20 +4,17 @@
 
 using namespace std;
 
-#ifndef ENEMIES_H
-#define ENEMIES_H
-class Enemies{
+#ifndef THANOS_H
+#define THANOS_H
+class Thanos{
 	protected:
 		int x;
 		int y;
 		int tx;
 		int ty;
 	public:
-		Enemies(int,int,int,int);
-		Enemies(int,int);
-		Enemies();
-		//int crear(int,int);
-		int eliminar(int,int);
+		Thanos(int,int,int,int);
+		Thanos();
 		int getX();
 		void setX(int);
 
